@@ -1,5 +1,5 @@
 /* ==========================================================================
-   令和政治勉強会 スタイルシート（スマホファースト & レスポンシブ）
+   令和政治勉強会 スタイルシート（スマホファースト・縦年表・完全フィット地図）
    ========================================================================== */
 
 :root {
@@ -47,10 +47,10 @@ b, h1, h2, h3, h4 {
 }
 
 /* ==========================================================================
-   Header (スマホファースト)
+   Header (看板の中央揃え & バッジの完全調整)
    ========================================================================== */
 header {
-  padding: 24px 0 16px;
+  padding: 26px 0 16px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -60,16 +60,17 @@ header {
 
 .header-wrap {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  padding: 16px 12px 0 34px; /* Give room on the left for the badge */
-  max-width: 100%;
+  padding-top: 14px;
 }
 
 .kanzen-badge {
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: -24px;
+  top: -22px;
   width: 58px;
   height: 58px;
   border-radius: 50%;
@@ -80,14 +81,15 @@ header {
   align-items: center;
   justify-content: center;
   color: var(--red);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: 0.02em;
   z-index: 10;
   box-shadow: 3px 3px 0 var(--ink);
-  transform: rotate(-10deg);
+  transform: rotate(-12deg);
   transition: transform 0.2s ease;
+  pointer-events: none;
 }
 
 .kanzen-badge span {
@@ -99,30 +101,31 @@ header {
   display: inline-block;
   background: var(--red);
   border: 3.5px solid var(--ink);
-  padding: 6px 8px;
-  box-shadow: 4px 4px 0 var(--ink);
-  border-radius: 4px;
-  max-width: 100%;
+  padding: 8px 12px;
+  box-shadow: 4.5px 4.5px 0 var(--ink);
+  border-radius: 6px;
 }
 
 .title-box h1 {
   border: 2px solid #ffffff;
-  padding: 8px 18px 7px 46px; /* 46px padding on left completely clears the badge */
+  padding: 10px 24px 8px;
   color: #ffffff;
-  font-size: clamp(20px, 5.6vw, 26px);
-  letter-spacing: 0.06em;
-  line-height: 1.1;
+  font-size: clamp(20px, 6vw, 30px);
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  text-align: center; /* 完全中央揃え！ */
   white-space: nowrap;
+  display: block;
 }
 
 /* Header Quick Nav */
 .quick-nav {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 16px;
   width: 100%;
-  max-width: 340px;
+  max-width: 360px;
 }
 
 .quick-nav a {
@@ -136,7 +139,7 @@ header {
   color: var(--ink);
   border: 2px solid var(--ink);
   border-radius: 99px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   font-size: 13px;
   font-weight: 900;
   text-decoration: none;
@@ -150,12 +153,12 @@ header {
 }
 
 /* ==========================================================================
-   Section Headers & Swipe Hints
+   Section Headers
    ========================================================================== */
 section {
   width: 100%;
   max-width: 100%;
-  padding: 20px 0 10px;
+  padding: 24px 0 10px;
   scroll-margin-top: 16px;
   box-sizing: border-box;
 }
@@ -172,11 +175,6 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
-}
-
-.sec-header-row .sec-title {
-  margin-bottom: 0;
 }
 
 .sec-title h2 {
@@ -195,7 +193,7 @@ section {
   letter-spacing: 0.08em;
 }
 
-.swipe-hint {
+.tl-order-badge {
   font-size: 11px;
   font-weight: 900;
   color: var(--ink);
@@ -208,16 +206,14 @@ section {
 }
 
 /* ==========================================================================
-   Quick Region Chips (Mobile Friendly Filter Pills)
+   Region Quick Chips
    ========================================================================== */
 .region-chips-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: 10px;
-  margin: 0 0 10px;
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-bottom: 8px;
+  margin: 0 0 8px;
 }
 
 .region-chips-scroll::-webkit-scrollbar {
@@ -226,7 +222,7 @@ section {
 
 .region-chips {
   display: flex;
-  gap: 8px;
+  gap: 7px;
   width: max-content;
 }
 
@@ -238,9 +234,9 @@ section {
   font-family: inherit;
   font-size: 12px;
   font-weight: 900;
-  padding: 6px 14px;
+  padding: 6px 13px;
   border-radius: 99px;
-  box-shadow: 2.5px 2.5px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
   cursor: pointer;
   white-space: nowrap;
   display: inline-flex;
@@ -256,7 +252,7 @@ section {
 }
 
 /* ==========================================================================
-   World Map Container (Horizontal Scrollable on Mobile)
+   World Map Container (スワイプ不要・画面内にすっぽり収まる)
    ========================================================================== */
 .map-container {
   width: 100%;
@@ -270,24 +266,9 @@ section {
   box-sizing: border-box;
 }
 
-.map-scroll-pane {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ink) #f0ebe0;
-  cursor: grab;
-  box-sizing: border-box;
-}
-
-.map-scroll-pane:active {
-  cursor: grabbing;
-}
-
 #map-svg-root {
-  min-width: 860px; /* Ensures crisp readable details and tapable markers */
   width: 100%;
+  display: block;
 }
 
 #map-svg-root svg {
@@ -298,7 +279,7 @@ section {
 
 .map-container .land {
   fill: #f4eee1;
-  stroke: #666666;
+  stroke: #777777;
   stroke-width: 0.45;
   transition: fill 0.15s ease;
 }
@@ -347,7 +328,7 @@ section {
 }
 
 .map-tag text {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 900;
   dominant-baseline: central;
   fill: var(--ink);
@@ -360,153 +341,190 @@ section {
 
 .map-tag .num {
   text-anchor: middle;
-  font-size: 11px;
+  font-size: 11.5px;
 }
 
 /* ==========================================================================
-   Timeline Container (Scrollable on Mobile)
+   Vertical Timeline (スマホファースト縦年表)
    ========================================================================== */
-.timeline-container {
+.v-timeline-container {
+  position: relative;
   width: 100%;
   max-width: 100%;
-  position: relative;
-  background: #ffffff;
-  border: 3px solid var(--ink);
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 5px 5px 0 var(--ink);
+  padding: 10px 0 20px 22px; /* Left padding for vertical line */
   box-sizing: border-box;
 }
 
-.timeline-scroll-pane {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ink) #f0ebe0;
-  padding: 22px 14px 14px;
-  box-sizing: border-box;
-}
-
-.tl-grid {
-  position: relative;
-  min-width: 800px;
-  margin-left: 110px;
-  margin-right: 20px;
-  height: 350px;
-}
-
-.lane {
-  position: absolute;
-  left: -110px;
-  right: 0;
-  height: 54px;
-  border-top: 2px dashed #e6e0d5;
-}
-
-.lane b {
-  position: absolute;
-  left: 0;
-  top: 12px;
-  font-size: 11.5px;
-  padding: 3px 8px;
-  border: 2px solid var(--ink);
-  border-radius: 99px;
-  background: #f8f5ee;
-  white-space: nowrap;
-}
-
-.tl-bar {
-  position: absolute;
-  top: 12px;
-  height: 30px;
-  border-radius: 10px;
-  border: 2.2px solid var(--ink);
-  font-size: 13px;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 2.5px 2.5px 0 var(--ink);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.tl-bar:active, .tl-bar.active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--ink);
-}
-
-.tl-bar .n {
-  background: #ffffff;
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-  flex: none;
-}
-
-/* Timeline Axis */
-.axis {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 26px;
-  border-top: 2.5px solid var(--ink);
-}
-
-.tick {
-  position: absolute;
-  top: 0;
-  font-size: 11.5px;
-  font-weight: 800;
-  transform: translateX(-50%);
-  padding-top: 6px;
-}
-
-.tick:before {
+/* Central/Left timeline axis line */
+.v-timeline-container::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: -6px;
-  height: 6px;
-  border-left: 2.5px solid var(--ink);
-  transform: translateX(-50%);
+  left: 20px;
+  top: 15px;
+  bottom: 25px;
+  width: 4px;
+  background: var(--ink);
+  border-radius: 99px;
 }
 
-.brk {
+.v-tl-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding-left: 28px;
+}
+
+.v-tl-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Timeline Node Circle */
+.v-tl-node {
   position: absolute;
-  top: -12px;
-  font-size: 15px;
+  left: -20px;
+  top: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
   font-weight: 900;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 0 3px;
-}
-
-.now {
-  position: absolute;
-  top: -6px;
-  bottom: 26px;
-  border-left: 2.5px dashed var(--red);
-}
-
-.now span {
-  position: absolute;
-  top: -18px;
-  left: -14px;
-  font-size: 11px;
   color: #ffffff;
+  box-shadow: 2.5px 2.5px 0 var(--ink);
+  z-index: 5;
   background: var(--red);
+}
+
+/* Timeline Card */
+.v-tl-card {
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.v-tl-card:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.v-tl-card-header {
+  padding: 12px 14px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink);
+}
+
+.v-tl-period {
+  font-size: 12px;
   font-weight: 900;
-  padding: 1px 5px;
-  border-radius: 4px;
-  white-space: nowrap;
+  color: var(--ink);
+  background: #ffffff;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1.8px solid var(--ink);
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+}
+
+.v-tl-badge {
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1.8px solid var(--ink);
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.v-tl-badge.web {
+  background: var(--red);
+  color: #ffffff;
+}
+
+.v-tl-card-body {
+  padding: 14px 16px 16px;
+  position: relative;
+}
+
+.v-tl-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.v-tl-title-row h3 {
+  font-size: 16.5px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.v-tl-illust {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  margin-top: -4px;
+}
+
+.v-tl-illust svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.v-tl-subtitle {
+  font-size: 12.5px;
+  color: #444;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.v-tl-summary {
+  font-size: 12px;
+  color: #555555;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.v-tl-btn {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #fdfaf4;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.v-tl-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+  background: #fff;
+}
+
+.v-tl-btn i {
+  font-style: normal;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.8px solid var(--ink);
+  display: grid;
+  place-items: center;
+  background: var(--cn);
+  font-size: 11px;
 }
 
 /* ==========================================================================
@@ -649,13 +667,14 @@ section {
 }
 
 /* ==========================================================================
-   Mobile Bottom Sheet & Backdrop (Unified Popup Experience)
+   Mobile Bottom Sheet & Backdrop
    ========================================================================== */
 .popup-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 998;
   opacity: 0;
   pointer-events: none;
@@ -856,27 +875,27 @@ section {
   }
 
   header {
-    padding: 44px 0 24px;
+    padding: 40px 0 24px;
   }
 
   .title-box {
-    border-width: 4.5px;
-    padding: 10px 14px;
+    border-width: 4px;
+    padding: 8px 12px;
     box-shadow: 6px 6px 0 var(--ink);
   }
 
   .title-box h1 {
-    font-size: 52px;
-    padding: 18px 46px 14px;
+    font-size: 46px;
+    padding: 14px 40px 10px;
   }
 
   .kanzen-badge {
-    width: 105px;
-    height: 105px;
-    font-size: 24px;
-    left: -30px;
-    top: -24px;
-    border-width: 4.5px;
+    width: 90px;
+    height: 90px;
+    font-size: 20px;
+    left: -32px;
+    top: -20px;
+    border-width: 4px;
   }
 
   .quick-nav {
@@ -889,12 +908,31 @@ section {
     font-size: 14px;
   }
 
+  .v-timeline-container {
+    padding-left: 36px;
+  }
+
+  .v-timeline-container::before {
+    left: 30px;
+  }
+
+  .v-tl-node {
+    left: -30px;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .v-tl-item {
+    padding-left: 36px;
+  }
+
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 
-  .map-container, .timeline-container {
+  .map-container {
     box-shadow: 6px 6px 0 var(--ink);
   }
 }
@@ -904,12 +942,7 @@ section {
     padding: 0 48px 80px;
   }
 
-  /* Hide mobile bottom navigation on desktop */
   .bottom-nav {
-    display: none;
-  }
-
-  .swipe-hint {
     display: none;
   }
 
@@ -918,8 +951,8 @@ section {
   }
 
   .title-box h1 {
-    font-size: 76px;
-    padding: 22px 76px 18px;
+    font-size: 68px;
+    padding: 18px 64px 14px;
     border-width: 3px;
   }
 
@@ -928,38 +961,18 @@ section {
   }
 
   .kanzen-badge {
-    width: 140px;
-    height: 140px;
-    font-size: 32px;
-    left: -55px;
-    top: -30px;
-    border-width: 5px;
-    box-shadow: 7px 7px 0 var(--ink);
+    width: 120px;
+    height: 120px;
+    font-size: 26px;
+    left: -48px;
+    top: -26px;
+    border-width: 4.5px;
+    box-shadow: 6px 6px 0 var(--ink);
   }
 
-  #map-svg-root {
-    min-width: auto;
-  }
-
-  .timeline-scroll-pane {
-    padding: 28px 32px 18px;
-  }
-
-  .tl-grid {
-    min-width: auto;
-    margin-left: 140px;
-    margin-right: 24px;
-    height: 370px;
-  }
-
-  .lane {
-    left: -140px;
-    height: 56px;
-  }
-
-  .lane b {
-    font-size: 13px;
-    padding: 4px 12px;
+  .v-timeline-container {
+    max-width: 860px;
+    margin: 0 auto;
   }
 
   .cards-grid {
@@ -967,7 +980,6 @@ section {
     gap: 24px;
   }
 
-  /* Desktop modal positioning */
   .sheet-popup {
     left: 50%;
     bottom: auto;

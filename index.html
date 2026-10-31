@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>令和政治勉強会｜完全版</title>
-  <meta name="description" content="令和政治勉強会 全9回の制作物・資料（CanvaおよびWebサイト）を世界地図と年表から横断して閲覧できるスマホファースト統合ポータル。">
+  <meta name="description" content="令和政治勉強会 全9回の制作物・資料（CanvaおよびWebサイト）を世界地図と縦年表から閲覧できる統合ポータル。">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,17 +27,16 @@
     </nav>
   </header>
 
-  <!-- World Map Section -->
+  <!-- World Map Section (No scroll needed: fully fitted inside screen) -->
   <section id="map-section">
     <div class="sec-header-row">
       <div class="sec-title">
         <h2>世界地図</h2>
         <span class="sub">WORLD MAP</span>
       </div>
-      <div class="swipe-hint">👈 スワイプ 👉</div>
     </div>
 
-    <!-- Quick Region Filter Chips (Mobile friendly) -->
+    <!-- Quick Region Chips -->
     <div class="region-chips-scroll">
       <div class="region-chips" id="region-chips">
         <button class="chip" data-reg="jp">🇯🇵 日本 (①)</button>
@@ -50,29 +49,25 @@
       </div>
     </div>
 
-    <!-- Scrollable Map Wrapper -->
+    <!-- Fitted Map Container -->
     <div class="map-container" id="map-wrap">
-      <div class="map-scroll-pane" id="map-scroll-pane">
-        <div id="map-svg-root"></div>
-      </div>
+      <div id="map-svg-root"></div>
     </div>
   </section>
 
-  <!-- Timeline Section -->
+  <!-- Vertical Timeline Section (スマホ最適化の縦年表) -->
   <section id="timeline-section">
     <div class="sec-header-row">
       <div class="sec-title">
         <h2>年表</h2>
         <span class="sub">TIMELINE</span>
       </div>
-      <div class="swipe-hint">👈 スワイプ 👉</div>
+      <div class="tl-order-badge">古代 ➔ 現代</div>
     </div>
 
-    <!-- Scrollable Timeline Card -->
-    <div class="timeline-container">
-      <div class="timeline-scroll-pane" id="tl-scroll-pane">
-        <div class="tl-grid" id="tl"></div>
-      </div>
+    <!-- Vertical Timeline Container -->
+    <div class="v-timeline-container" id="v-timeline">
+      <!-- Generated via app.js -->
     </div>
   </section>
 
