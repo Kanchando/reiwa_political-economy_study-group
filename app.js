@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contentHtml = `
       <h4>
         <i style="background:${regInfo.color}"></i>
-        ${regInfo.name} ― ${regSessions.length}回分
+        ${regInfo.name}
       </h4>
       <div class="sheet-desc">該当する回の資料リンク（Canva / Webサイト）へ移動できます。</div>
       ${cardsHtml}

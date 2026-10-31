@@ -313,24 +313,23 @@ section {
   stroke-dasharray: 4 4;
 }
 
-/* Figures on Map */
+/* Figures on Map (完全に静止・タップ時の不要な移動や拡大を防止) */
 .map-figure {
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: auto;
 }
 
 .map-figure:hover, .map-figure:active {
-  transform: scale(1.15);
+  transform: none;
 }
 
-/* Tags on Map */
+/* Tags on Map (完全に静止) */
 .map-tag {
   cursor: pointer;
-  transition: transform 0.15s ease;
 }
 
 .map-tag:hover, .map-tag:active {
-  transform: scale(1.08);
+  transform: none;
 }
 
 .map-tag rect {
