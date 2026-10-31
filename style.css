@@ -205,18 +205,6 @@ section {
   white-space: nowrap;
 }
 
-.tl-guide-hint {
-  font-size: 11.5px;
-  font-weight: 900;
-  color: var(--ink);
-  background: #ffffff;
-  border: 2px dashed var(--ink);
-  padding: 4px 14px;
-  border-radius: 99px;
-  display: inline-block;
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
 /* ==========================================================================
    Region Quick Chips
    ========================================================================== */
