@@ -205,6 +205,18 @@ section {
   white-space: nowrap;
 }
 
+.tl-guide-hint {
+  font-size: 11.5px;
+  font-weight: 900;
+  color: var(--ink);
+  background: #ffffff;
+  border: 2px dashed var(--ink);
+  padding: 4px 14px;
+  border-radius: 99px;
+  display: inline-block;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
 /* ==========================================================================
    Region Quick Chips
    ========================================================================== */
@@ -345,179 +357,199 @@ section {
 }
 
 /* ==========================================================================
-   Vertical Timeline (スマホファースト縦年表)
+   Matrix Timeline (X: 地域 × Y: 西暦 の縦型並行年表)
    ========================================================================== */
-.v-timeline-container {
-  position: relative;
+.timeline-container {
   width: 100%;
   max-width: 100%;
-  padding: 10px 0 20px 22px; /* Left padding for vertical line */
+  position: relative;
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 5px 5px 0 var(--ink);
   box-sizing: border-box;
 }
 
-/* Central/Left timeline axis line */
-.v-timeline-container::before {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 15px;
-  bottom: 25px;
-  width: 4px;
-  background: var(--ink);
-  border-radius: 99px;
+.timeline-scroll-pane {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 10px 18px;
+  box-sizing: border-box;
 }
 
-.v-tl-item {
+.v-tl-matrix {
   position: relative;
-  margin-bottom: 24px;
-  padding-left: 28px;
+  width: 100%;
+  min-width: 350px;
+  box-sizing: border-box;
 }
 
-.v-tl-item:last-child {
-  margin-bottom: 0;
-}
-
-/* Timeline Node Circle */
-.v-tl-node {
-  position: absolute;
-  left: -20px;
-  top: 16px;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 3px solid var(--ink);
-  display: grid;
-  place-items: center;
-  font-size: 16px;
-  font-weight: 900;
-  color: #ffffff;
-  box-shadow: 2.5px 2.5px 0 var(--ink);
-  z-index: 5;
-  background: var(--red);
-}
-
-/* Timeline Card */
-.v-tl-card {
-  background: #ffffff;
-  border: 3px solid var(--ink);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 4px 4px 0 var(--ink);
+/* 列ヘッダー行 (X軸: 国・地域) */
+.v-tl-header-row {
   display: flex;
-  flex-direction: column;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-left: 48px; /* Y軸の幅ぶんオフセット */
+  border-bottom: 2.5px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-.v-tl-card:active {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-.v-tl-card-header {
-  padding: 12px 14px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid var(--ink);
-}
-
-.v-tl-period {
-  font-size: 12px;
-  font-weight: 900;
-  color: var(--ink);
-  background: #ffffff;
-  padding: 3px 10px;
-  border-radius: 99px;
-  border: 1.8px solid var(--ink);
-  box-shadow: 1.5px 1.5px 0 var(--ink);
-}
-
-.v-tl-badge {
+.v-tl-col-header {
+  flex: 1;
+  text-align: center;
   font-size: 11px;
   font-weight: 900;
-  padding: 3px 9px;
+  color: var(--ink);
+  line-height: 1.2;
+  padding: 0 1px;
+}
+
+.v-tl-col-header .col-badge {
+  display: inline-block;
+  padding: 3px 4px;
   border-radius: 99px;
   border: 1.8px solid var(--ink);
-  background: #ffffff;
-  color: var(--ink);
-}
-
-.v-tl-badge.web {
-  background: var(--red);
-  color: #ffffff;
-}
-
-.v-tl-card-body {
-  padding: 14px 16px 16px;
-  position: relative;
-}
-
-.v-tl-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.v-tl-title-row h3 {
-  font-size: 16.5px;
-  line-height: 1.35;
-  color: var(--ink);
-}
-
-.v-tl-illust {
-  flex: none;
-  width: 48px;
-  height: 48px;
-  margin-top: -4px;
-}
-
-.v-tl-illust svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.v-tl-subtitle {
-  font-size: 12.5px;
-  color: #444;
-  font-weight: 800;
-  margin-top: 4px;
-}
-
-.v-tl-summary {
-  font-size: 12px;
-  color: #555555;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-top: 8px;
-}
-
-.v-tl-btn {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
   background: #fdfaf4;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+/* 年表本体エリア (Y軸＋カラムエリア) */
+.v-tl-body {
+  position: relative;
+  height: 760px; /* 全高: 古代から現代までゆったりスクロール */
+}
+
+/* Y軸 (西暦目盛) */
+.v-tl-y-axis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 100%;
+  border-right: 2.2px solid var(--ink);
+  box-sizing: border-box;
+}
+
+.v-tl-tick {
+  position: absolute;
+  right: 5px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  font-weight: 900;
+  color: #444;
+  white-space: nowrap;
+  background: #ffffff;
+  padding: 0 2px;
+  z-index: 2;
+}
+
+.v-tl-tick.now {
+  color: var(--red);
+  font-weight: 900;
+  font-size: 11px;
+}
+
+.v-tl-brk {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: #999;
+  font-weight: 900;
+  background: #ffffff;
+  z-index: 2;
+}
+
+/* 水平グリッド破線 */
+.v-tl-gridline {
+  position: absolute;
+  left: 48px;
+  right: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* カラム列エリア */
+.v-tl-columns {
+  position: absolute;
+  left: 48px;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+}
+
+.v-tl-col {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  border-right: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.v-tl-col:last-child {
+  border-right: none;
+}
+
+/* 縦バー (Timeline Vertical Bars) */
+.tl-bar-v {
+  position: absolute;
+  width: calc(100% - 4px);
+  left: 2px;
+  border-radius: 9px;
   border: 2px solid var(--ink);
-  border-radius: 12px;
-  font-size: 13px;
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3px 1px 2px;
+  box-sizing: border-box;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.tl-bar-v:hover, .tl-bar-v:active {
+  transform: scale(1.04);
+  box-shadow: 3px 3px 0 var(--ink);
+  filter: brightness(0.95);
+  z-index: 10;
+}
+
+.tl-bar-v .n {
+  background: #ffffff;
+  border: 1.8px solid var(--ink);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 10.5px;
   font-weight: 900;
   color: var(--ink);
-  text-decoration: none;
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-.v-tl-btn:active {
-  transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 var(--ink);
-  background: #fff;
+  flex: none;
 }
 
-.v-tl-btn i {
-  font-style: normal;
-  width: 24px;
+.tl-bar-v .bar-title {
+  font-size: 8.8px;
+  font-weight: 900;
+  color: var(--ink);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin-top: 3px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  line-height: 1;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+}
   height: 24px;
   border-radius: 50%;
   border: 1.8px solid var(--ink);

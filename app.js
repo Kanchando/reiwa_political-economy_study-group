@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // DOM Elements
   const mapContainer = document.getElementById("map-svg-root");
-  const vTimeline = document.getElementById("v-timeline");
+  const tlMatrix = document.getElementById("v-tl-matrix");
   const cardsGrid = document.getElementById("cards");
   const sheetPopup = document.getElementById("sheet-popup");
   const sheetContent = document.getElementById("sheet-content");
@@ -111,6 +111,36 @@ document.addEventListener("DOMContentLoaded", function () {
     openPopup(contentHtml);
   }
 
+  // Show details for a single session (from timeline vertical bar)
+  function showSessionPopup(sessionNum) {
+    const s = sessions[sessionNum - 1];
+    if (!s) return;
+
+    const regInfo = regions[s.region] || { name: "", color: "#e0e0e0" };
+    const contentHtml = `
+      <h4>
+        <i style="background:${regInfo.color}"></i>
+        第${s.n}回 ${s.title}
+      </h4>
+      <div class="sheet-desc">
+        <b>📅 ${s.period}</b>｜${s.subtitle}<br>
+        <p style="margin-top:8px; color:#444; font-weight:600; line-height:1.55;">${s.summary}</p>
+      </div>
+      <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="sheet-item-card" style="background:#fff7f8; border-color:var(--red); margin-top:14px;">
+        <div class="item-header">
+          <b style="font-size:15px; color:var(--red);">資料を開く (${s.type})</b>
+          <span class="item-badge ${s.type === 'Webサイト' ? 'web' : ''}">${s.type} ↗</span>
+        </div>
+        <div class="item-btn" style="border:none; padding-top:4px;">
+          <span>タップして別タブで閲覧する</span>
+          <span style="font-weight:900;">→</span>
+        </div>
+      </a>
+    `;
+
+    openPopup(contentHtml);
+  }
+
   // ==========================================================================
   // 2. Render World Map (画面幅に100%フィット・スクロール不要)
   // ==========================================================================
@@ -198,53 +228,144 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==========================================================================
-  // 3. Render Vertical Timeline (古代から現代へのスマホ最適化・縦年表)
+  // 3. Render Matrix Timeline (X: 地域 × Y: 西暦 の縦型並行年表)
   // ==========================================================================
-  function renderVerticalTimeline() {
-    if (!vTimeline) return;
+  const BP = [-800, -27, 500, 1150, 1850, 2030];
+  const FR = [0, 0.22, 0.38, 0.52, 0.68, 1.0];
 
-    // Sort chronologically (startYear ascending)
-    const sortedSessions = [...sessions].sort((a, b) => a.startYear - b.startYear);
-
-    let vtlHtml = "";
-    sortedSessions.forEach((s) => {
-      const reg = regions[s.region] || { color: "#e0e0e0" };
-      const figSvg = figureRendererMap[s.figure] || "";
-
-      vtlHtml += `
-      <div class="v-tl-item" id="tl-item-${s.n}">
-        <div class="v-tl-node" style="background:${reg.color}; color:#222;">
-          ${s.n}
-        </div>
-        <article class="v-tl-card">
-          <div class="v-tl-card-header" style="background:${reg.color}33;">
-            <span class="v-tl-period">📅 ${s.period}</span>
-            <span class="v-tl-badge ${s.type === 'Webサイト' ? 'web' : ''}">${s.type}</span>
-          </div>
-          <div class="v-tl-card-body">
-            <div class="v-tl-title-row">
-              <div>
-                <h3>第${s.n}回 ${s.title}</h3>
-                <div class="v-tl-subtitle">${s.subtitle}</div>
-              </div>
-              <div class="v-tl-illust">
-                <svg width="48" height="48" viewBox="0 0 64 64">${figSvg}</svg>
-              </div>
-            </div>
-            <div class="v-tl-summary">${s.summary}</div>
-            <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="v-tl-btn">
-              <span>資料を開く (${s.type})</span>
-              <i>→</i>
-            </a>
-          </div>
-        </article>
-      </div>`;
-    });
-
-    vTimeline.innerHTML = vtlHtml;
+  function calcY(year, totalHeight) {
+    for (let i = 0; i < BP.length - 1; i++) {
+      if (year <= BP[i + 1]) {
+        return (
+          (FR[i] +
+            ((year - BP[i]) / (BP[i + 1] - BP[i])) * (FR[i + 1] - FR[i])) *
+          totalHeight
+        );
+      }
+    }
+    return totalHeight;
   }
 
-  renderVerticalTimeline();
+  const columns = [
+    { name: "日本", flag: "🇯🇵", sessionNums: [1] },
+    { name: "米伊中", flag: "🕊️", sessionNums: [2] },
+    { name: "中国・蒙", flag: "🇨🇳", sessionNums: [5, 3] }, // モンゴル(5) -> 中国(3)
+    { name: "ロシア", flag: "🇷🇺", sessionNums: [4] },
+    { name: "ローマ", flag: "🏛️", sessionNums: [6, 7, 8] },
+    { name: "アメリカ", flag: "🇺🇸", sessionNums: [9] }
+  ];
+
+  const shortLabels = {
+    1: "戦後政治史",
+    2: "米伊中関係",
+    3: "2つの中国",
+    4: "ロシア史",
+    5: "モンゴル",
+    6: "建国〜帝政",
+    7: "五賢帝",
+    8: "西ローマ",
+    9: "アメリカ政治"
+  };
+
+  const ticks = [
+    [-753, "前753"],
+    [-27, "前27"],
+    [180, "180"],
+    [476, "476"],
+    [862, "862"],
+    [1206, "1206"],
+    [1368, "1368"],
+    [1860, "1860"],
+    [1912, "1912"],
+    [1946, "1946"],
+    [2026, "いま"]
+  ];
+
+  const breaks = [-400, 680, 1600];
+
+  function renderMatrixTimeline() {
+    if (!tlMatrix) return;
+
+    const TOTAL_H = 780;
+
+    // 1. Column Headers (X axis)
+    let headerHtml = `<div class="v-tl-header-row">`;
+    columns.forEach((col) => {
+      headerHtml += `
+      <div class="v-tl-col-header">
+        <span class="col-badge">${col.flag} ${col.name}</span>
+      </div>`;
+    });
+    headerHtml += `</div>`;
+
+    // 2. Body (Y axis ticks, horizontal grid lines, and columns with vertical bars)
+    let bodyHtml = `<div class="v-tl-body">`;
+
+    // Y axis (West year ticks)
+    bodyHtml += `<div class="v-tl-y-axis">`;
+    ticks.forEach(([year, label]) => {
+      const y = calcY(year, TOTAL_H);
+      const isNow = year === 2026;
+      bodyHtml += `<span class="v-tl-tick ${isNow ? "now" : ""}" style="top:${y}px">${label}</span>`;
+    });
+    breaks.forEach((by) => {
+      const y = calcY(by, TOTAL_H);
+      bodyHtml += `<span class="v-tl-brk" style="top:${y}px">≈</span>`;
+    });
+    bodyHtml += `</div>`;
+
+    // Horizontal grid lines across all columns
+    ticks.forEach(([year]) => {
+      const y = calcY(year, TOTAL_H);
+      bodyHtml += `<div class="v-tl-gridline" style="top:${y}px"></div>`;
+    });
+
+    // Columns
+    bodyHtml += `<div class="v-tl-columns">`;
+    columns.forEach((col) => {
+      bodyHtml += `<div class="v-tl-col">`;
+
+      col.sessionNums.forEach((sn) => {
+        const s = sessions[sn - 1];
+        if (!s) return;
+
+        const y1 = calcY(s.startYear, TOTAL_H);
+        const y2 = calcY(s.endYear, TOTAL_H);
+        let minH = 38;
+        if (sn === 5) minH = 62; // モンゴル帝国 (「モンゴル」3文字が余裕で収まる高さ)
+        if (sn === 7) minH = 56; // 五賢帝
+        if (sn === 8) minH = 56; // 西ローマ
+        const barH = Math.max(minH, y2 - y1);
+        const regColor = regions[s.region] ? regions[s.region].color : "#ddd";
+        const hasText = barH >= 42;
+
+        bodyHtml += `
+        <div class="tl-bar-v" data-sn="${s.n}" style="top:${y1}px; height:${barH}px; background:${regColor};" title="第${s.n}回 ${s.title}">
+          <span class="n">${s.n}</span>
+          ${hasText ? `<span class="bar-title">${shortLabels[s.n]}</span>` : ""}
+        </div>`;
+      });
+
+      bodyHtml += `</div>`;
+    });
+    bodyHtml += `</div>`; // .v-tl-columns
+
+    bodyHtml += `</div>`; // .v-tl-body
+
+    tlMatrix.innerHTML = headerHtml + bodyHtml;
+
+    // Attach click listeners to bars
+    tlMatrix.querySelectorAll(".tl-bar-v").forEach((bar) => {
+      bar.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const sn = parseInt(bar.getAttribute("data-sn"), 10);
+        showSessionPopup(sn);
+      });
+    });
+  }
+
+  renderMatrixTimeline();
+  window.addEventListener("resize", renderMatrixTimeline);
 
   // ==========================================================================
   // 4. Render All Sessions Cards Section
@@ -314,10 +435,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // URL Preview Param Support (e.g. ?preview=rm)
+  // URL Preview Param Support (e.g. ?preview=rm or ?session=5)
   const urlParams = new URLSearchParams(window.location.search);
   const previewReg = urlParams.get("preview");
-  if (previewReg && regions[previewReg]) {
+  const previewSession = urlParams.get("session");
+  if (previewSession) {
+    showSessionPopup(parseInt(previewSession, 10));
+  } else if (previewReg && regions[previewReg]) {
     showRegionPopup(previewReg);
   }
 });

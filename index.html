@@ -55,7 +55,7 @@
     </div>
   </section>
 
-  <!-- Vertical Timeline Section (スマホ最適化の縦年表) -->
+  <!-- Vertical Timeline Section (X軸:地域 × Y軸:西暦 の縦型並行年表) -->
   <section id="timeline-section">
     <div class="sec-header-row">
       <div class="sec-title">
@@ -65,9 +65,17 @@
       <div class="tl-order-badge">古代 ➔ 現代</div>
     </div>
 
-    <!-- Vertical Timeline Container -->
-    <div class="v-timeline-container" id="v-timeline">
-      <!-- Generated via app.js -->
+    <div style="text-align:center; margin-bottom:8px;">
+      <span class="tl-guide-hint">👆 帯をタップすると、各回の資料（Canva / Web）が開きます</span>
+    </div>
+
+    <!-- Timeline Wrapper -->
+    <div class="timeline-container" id="tl-container">
+      <div class="timeline-scroll-pane" id="tl-scroll-pane">
+        <div class="v-tl-matrix" id="v-tl-matrix">
+          <!-- Generated via app.js -->
+        </div>
+      </div>
     </div>
   </section>
 
