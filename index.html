@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>令和政治勉強会｜完全版</title>
+  <meta name="description" content="令和政治勉強会 全9回の制作物・資料（CanvaおよびWebサイト）を世界地図と年表から横断して閲覧できるスマホファースト統合ポータル。">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-wrap">
+      <div class="kanzen-badge">
+        <span>完全</span>
+        <span>版！</span>
+      </div>
+      <div class="title-box">
+        <h1>令和政治勉強会</h1>
+      </div>
+    </div>
+    <nav class="quick-nav">
+      <a href="#map-section">🗺️ 地図</a>
+      <a href="#timeline-section">⏳ 年表</a>
+      <a href="#cards-section">📚 一覧</a>
+    </nav>
+  </header>
+
+  <!-- World Map Section -->
+  <section id="map-section">
+    <div class="sec-header-row">
+      <div class="sec-title">
+        <h2>世界地図</h2>
+        <span class="sub">WORLD MAP</span>
+      </div>
+      <div class="swipe-hint">👈 スワイプ 👉</div>
+    </div>
+
+    <!-- Quick Region Filter Chips (Mobile friendly) -->
+    <div class="region-chips-scroll">
+      <div class="region-chips" id="region-chips">
+        <button class="chip" data-reg="jp">🇯🇵 日本 (①)</button>
+        <button class="chip" data-reg="ui">🕊️ 米・イラン・中 (②)</button>
+        <button class="chip" data-reg="cn">🇨🇳 中国・台湾 (③)</button>
+        <button class="chip" data-reg="ru">🇷🇺 ロシア (④)</button>
+        <button class="chip" data-reg="mn">🇲🇳 モンゴル (⑤)</button>
+        <button class="chip" data-reg="rm">🏛️ ローマ (⑥〜⑧)</button>
+        <button class="chip" data-reg="us">🇺🇸 アメリカ (⑨)</button>
+      </div>
+    </div>
+
+    <!-- Scrollable Map Wrapper -->
+    <div class="map-container" id="map-wrap">
+      <div class="map-scroll-pane" id="map-scroll-pane">
+        <div id="map-svg-root"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline-section">
+    <div class="sec-header-row">
+      <div class="sec-title">
+        <h2>年表</h2>
+        <span class="sub">TIMELINE</span>
+      </div>
+      <div class="swipe-hint">👈 スワイプ 👉</div>
+    </div>
+
+    <!-- Scrollable Timeline Card -->
+    <div class="timeline-container">
+      <div class="timeline-scroll-pane" id="tl-scroll-pane">
+        <div class="tl-grid" id="tl"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Sessions Cards Section -->
+  <section id="cards-section">
+    <div class="sec-title">
+      <h2>全9回の一覧</h2>
+      <span class="sub">ALL 9 SESSIONS</span>
+    </div>
+    <div class="cards-grid" id="cards"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>令和政治勉強会 · 全9回完全アーカイブ</p>
+  </footer>
+
+  <!-- Modal / Bottom Sheet Popup System -->
+  <div class="popup-backdrop" id="popup-backdrop"></div>
+  
+  <div class="sheet-popup" id="sheet-popup" role="dialog" aria-modal="true">
+    <div class="sheet-drag-handle"></div>
+    <div class="sheet-close" id="sheet-close" aria-label="閉じる">×</div>
+    <div class="sheet-content" id="sheet-content"></div>
+  </div>
+
+  <!-- Bottom Floating Navigation (Mobile Only) -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#map-section" class="b-nav-item active" id="bnav-map">
+      <span class="b-nav-icon">🗺️</span>
+      <span class="b-nav-label">地図</span>
+    </a>
+    <a href="#timeline-section" class="b-nav-item" id="bnav-tl">
+      <span class="b-nav-icon">⏳</span>
+      <span class="b-nav-label">年表</span>
+    </a>
+    <a href="#cards-section" class="b-nav-item" id="bnav-cards">
+      <span class="b-nav-icon">📚</span>
+      <span class="b-nav-label">一覧</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="map-data.js"></script>
+  <script src="data.js"></script>
+  <script src="figures.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
