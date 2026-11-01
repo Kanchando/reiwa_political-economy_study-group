@@ -246,14 +246,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return totalHeight;
   }
 
+  // 地理的配置（西から東: アメリカ[左] ➔ ローマ ➔ ロシア ➔ イラン ➔ モンゴル ➔ 中国 ➔ 日本[右]）
   const columns = [
-    { label: "🇯🇵", isRome: false, sessionNums: [1] },
-    { label: "🇮🇷", isRome: false, sessionNums: [2] },
-    { label: "🇨🇳", isRome: false, sessionNums: [3] },
-    { label: "🇷🇺", isRome: false, sessionNums: [4] },
-    { label: "🇲🇳", isRome: false, sessionNums: [5] },
+    { label: "🇺🇸", isRome: false, sessionNums: [9] },
     { label: "🏛️ ローマ", isRome: true, sessionNums: [6, 7, 8] },
-    { label: "🇺🇸", isRome: false, sessionNums: [9] }
+    { label: "🇷🇺", isRome: false, sessionNums: [4] },
+    { label: "🇮🇷", isRome: false, sessionNums: [2] },
+    { label: "🇲🇳", isRome: false, sessionNums: [5] },
+    { label: "🇨🇳", isRome: false, sessionNums: [3] },
+    { label: "🇯🇵", isRome: false, sessionNums: [1] }
   ];
 
   const shortLabels = {
