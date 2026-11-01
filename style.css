@@ -232,17 +232,24 @@ section {
   background: #ffffff;
   color: var(--ink);
   font-family: inherit;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 900;
-  padding: 6px 13px;
+  padding: 5px 12px;
   border-radius: 99px;
   box-shadow: 2px 2px 0 var(--ink);
   cursor: pointer;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  line-height: 1.2;
   transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.chip.chip-rome {
+  font-size: 12px;
+  padding: 6px 12px;
+  gap: 2px;
 }
 
 .chip:active, .chip.active {
@@ -386,22 +393,30 @@ section {
 .v-tl-col-header {
   flex: 1;
   text-align: center;
-  font-size: 11px;
   font-weight: 900;
   color: var(--ink);
   line-height: 1.2;
   padding: 0 1px;
 }
 
+.v-tl-col-header.col-rome {
+  flex: 1.35;
+}
+
 .v-tl-col-header .col-badge {
   display: inline-block;
-  padding: 3px 4px;
+  padding: 2px 3px;
   border-radius: 99px;
   border: 1.8px solid var(--ink);
   background: #fdfaf4;
   box-shadow: 1.5px 1.5px 0 var(--ink);
-  font-size: 10.5px;
+  font-size: 13.5px;
   white-space: nowrap;
+}
+
+.v-tl-col-header .col-badge.badge-rome {
+  font-size: 10.5px;
+  padding: 3px 5px;
 }
 
 /* 年表本体エリア (Y軸＋カラムエリア) */
@@ -479,6 +494,10 @@ section {
   border-right: 1px dashed rgba(0, 0, 0, 0.08);
 }
 
+.v-tl-col.col-rome {
+  flex: 1.35;
+}
+
 .v-tl-col:last-child {
   border-right: none;
 }
@@ -526,13 +545,13 @@ section {
 }
 
 .tl-bar-v .bar-title {
-  font-size: 8.8px;
+  font-size: 8.5px;
   font-weight: 900;
   color: var(--ink);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  margin-top: 3px;
-  letter-spacing: 0.01em;
+  margin-top: 2px;
+  letter-spacing: -0.03em;
   white-space: nowrap;
   line-height: 1;
   text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);

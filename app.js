@@ -247,12 +247,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const columns = [
-    { name: "日本", flag: "🇯🇵", sessionNums: [1] },
-    { name: "米伊中", flag: "🕊️", sessionNums: [2] },
-    { name: "中国・蒙", flag: "🇨🇳", sessionNums: [5, 3] }, // モンゴル(5) -> 中国(3)
-    { name: "ロシア", flag: "🇷🇺", sessionNums: [4] },
-    { name: "ローマ", flag: "🏛️", sessionNums: [6, 7, 8] },
-    { name: "アメリカ", flag: "🇺🇸", sessionNums: [9] }
+    { label: "🇯🇵", isRome: false, sessionNums: [1] },
+    { label: "🇮🇷", isRome: false, sessionNums: [2] },
+    { label: "🇨🇳", isRome: false, sessionNums: [3] },
+    { label: "🇷🇺", isRome: false, sessionNums: [4] },
+    { label: "🇲🇳", isRome: false, sessionNums: [5] },
+    { label: "🏛️ ローマ", isRome: true, sessionNums: [6, 7, 8] },
+    { label: "🇺🇸", isRome: false, sessionNums: [9] }
   ];
 
   const shortLabels = {
@@ -292,8 +293,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let headerHtml = `<div class="v-tl-header-row">`;
     columns.forEach((col) => {
       headerHtml += `
-      <div class="v-tl-col-header">
-        <span class="col-badge">${col.flag} ${col.name}</span>
+      <div class="v-tl-col-header ${col.isRome ? "col-rome" : ""}">
+        <span class="col-badge ${col.isRome ? "badge-rome" : ""}">${col.label}</span>
       </div>`;
     });
     headerHtml += `</div>`;
@@ -323,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Columns
     bodyHtml += `<div class="v-tl-columns">`;
     columns.forEach((col) => {
-      bodyHtml += `<div class="v-tl-col">`;
+      bodyHtml += `<div class="v-tl-col ${col.isRome ? "col-rome" : ""}">`;
 
       col.sessionNums.forEach((sn) => {
         const s = sessions[sn - 1];
@@ -332,9 +333,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const y1 = calcY(s.startYear, TOTAL_H);
         const y2 = calcY(s.endYear, TOTAL_H);
         let minH = 38;
-        if (sn === 5) minH = 62; // モンゴル帝国 (「モンゴル」3文字が余裕で収まる高さ)
-        if (sn === 7) minH = 56; // 五賢帝
-        if (sn === 8) minH = 56; // 西ローマ
+        if (sn === 5) minH = 62; // モンゴル帝国
+        if (sn === 7) minH = 60; // 五賢帝
+        if (sn === 8) minH = 60; // 西ローマ
         const barH = Math.max(minH, y2 - y1);
         const regColor = regions[s.region] ? regions[s.region].color : "#ddd";
         const hasText = barH >= 42;
