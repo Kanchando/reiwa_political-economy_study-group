@@ -168,10 +168,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Historical Figures on Map
     svgHtml += `<g class="map-figure" data-region="us">${figures.drawTrump(markers.usa[0] + 20, markers.usa[1] + 15, 0.72)}</g>`;
-    svgHtml += `<g class="map-figure" data-region="ru">${figures.drawPutin(markers.russia[0] + 65, markers.russia[1] + 20, 0.72)}</g>`;
+    svgHtml += `<g class="map-figure" data-region="ru">${figures.drawPutin(markers.russia[0] - 28, markers.russia[1] - 22, 0.72)}</g>`;
     svgHtml += `<g class="map-figure" data-region="cn">${figures.drawMao(markers.china[0], markers.china[1] + 10, 0.7)}</g>`;
     svgHtml += `<g class="map-figure" data-region="mn">${figures.drawGenghis(markers.mongolia[0] - 25, markers.mongolia[1] - 5, 0.7)}</g>`;
-    svgHtml += `<g class="map-figure" data-region="jp">${figures.drawYoshida(markers.japan[0] + 20, markers.japan[1] + 30, 0.62)}</g>`;
+    svgHtml += `<g class="map-figure" data-region="jp">${figures.drawYoshida(markers.japan[0] + 28, markers.japan[1] + 3, 0.62)}</g>`;
     svgHtml += `<g class="map-figure" data-region="rm">${figures.drawCaesar(markers.rome[0] - 25, markers.rome[1] + 35, 0.7)}</g>`;
 
     // Tags with Session Numbers
