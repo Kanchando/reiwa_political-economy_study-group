@@ -1,4 +1,4 @@
-// 令和政治勉強会 全9回アーカイブ データ定義
+// 令和政治勉強会 全10回アーカイブ データ定義
 window.POLITICS_STUDY_DATA = {
   title: "令和政治勉強会",
   badge: "完全版！",
@@ -137,6 +137,20 @@ window.POLITICS_STUDY_DATA = {
       figure: "trump",
       figureName: "トランプ",
       summary: "リンカーン共和党からニクソンの南部戦略、白人福音派とテクノリバタリアンの台頭。2026年中間選挙前の議会勢力と第2次トランプ政権の深層。"
+    },
+    {
+      n: 10,
+      title: "東ローマ帝国 誕生と衰亡",
+      subtitle: "476年（西ローマ滅亡） → 1096年（十字軍前夜）",
+      period: "476年 〜 1096年",
+      startYear: 476,
+      endYear: 1096,
+      type: "Webサイト",
+      url: "https://kanchando.github.io/west-roman_to_east-roman/",
+      region: "rm",
+      figure: "caesar",
+      figureName: "ユスティニアヌス1世",
+      summary: "西ローマ滅亡（476年）から第1回十字軍（1096年）までの約600年間。軍事（テマ制）・経済（ソリドゥス金貨）・宗教（東西教会分裂）の3軸から読み解く中世ビザンツ帝国の国家生存戦略と世界史への影響。"
     }
   ]
 };

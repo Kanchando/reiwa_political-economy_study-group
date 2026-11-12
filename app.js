@@ -176,14 +176,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Tags with Session Numbers
     function renderTag(x, y, regKey, numStr, label) {
-      const w = 34 + label.length * 13.2 + (numStr.length > 1 ? 10 : 0);
-      const cr = numStr.length > 1 ? 12 : 10;
+      const numLen = numStr.length;
+      const isLong = numLen > 2;
+      const bw = numLen > 4 ? numLen * 6.5 + 8 : (isLong ? 26 : 22);
+      const w = bw + 14 + label.length * 13.2;
       return `
       <g class="map-tag" data-region="${regKey}">
         <rect x="${x}" y="${y - 13}" width="${w}" height="26" rx="13"/>
-        <circle cx="${x + 13}" cy="${y}" r="${cr}" style="fill:${regions[regKey].color}"/>
-        <text class="num" x="${x + 13}" y="${y + 1}" style="font-size:${numStr.length > 2 ? 9 : 11}px">${numStr}</text>
-        <text x="${x + 13 + cr + 6}" y="${y + 1}">${label}</text>
+        <rect x="${x + 3}" y="${y - 10}" width="${bw}" height="20" rx="10" style="fill:${regions[regKey].color}"/>
+        <text class="num" x="${x + 3 + bw / 2}" y="${y + 1}" style="font-size:${numLen > 4 ? 8.5 : (isLong ? 9.5 : 11)}px">${numStr}</text>
+        <text x="${x + 3 + bw + 6}" y="${y + 1}">${label}</text>
       </g>`;
     }
 
@@ -193,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
     svgHtml += renderTag(markers.mongolia[0] + 5, markers.mongolia[1] - 28, "mn", "5", "モンゴル帝国");
     svgHtml += renderTag(markers.iran[0] - 35, markers.iran[1] + 35, "ui", "2", "米・イラン・中国");
     svgHtml += renderTag(markers.japan[0] + 18, markers.japan[1] - 8, "jp", "1", "日本");
-    svgHtml += renderTag(markers.rome[0] - 115, markers.rome[1] - 38, "rm", "6-8", "ローマ帝国");
+    svgHtml += renderTag(markers.rome[0] - 128, markers.rome[1] - 38, "rm", "6-8,10", "ローマ帝国");
 
     svgHtml += "</svg>";
     mapContainer.innerHTML = svgHtml;
@@ -249,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 地理的配置（西から東: アメリカ[左] ➔ ローマ ➔ イラン ➔ ロシア ➔ モンゴル ➔ 中国 ➔ 日本[右]）
   const columns = [
     { label: "🇺🇸", isRome: false, sessionNums: [9] },
-    { label: "🏛️ ローマ", isRome: true, sessionNums: [6, 7, 8] },
+    { label: "🏛️ ローマ", isRome: true, sessionNums: [6, 7, 8, 10] },
     { label: "🇮🇷", isRome: false, sessionNums: [2] },
     { label: "🇷🇺", isRome: false, sessionNums: [4] },
     { label: "🇲🇳", isRome: false, sessionNums: [5] },
@@ -266,7 +268,8 @@ document.addEventListener("DOMContentLoaded", function () {
     6: "建国〜帝政",
     7: "五賢帝",
     8: "西ローマ",
-    9: "アメリカ政治"
+    9: "アメリカ政治",
+    10: "東ローマ"
   };
 
   const ticks = [
@@ -275,6 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
     [180, "180"],
     [476, "476"],
     [862, "862"],
+    [1096, "1096"],
     [1206, "1206"],
     [1368, "1368"],
     [1860, "1860"],

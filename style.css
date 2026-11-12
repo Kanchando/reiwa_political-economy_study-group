@@ -532,16 +532,18 @@ section {
 .tl-bar-v .n {
   background: #ffffff;
   border: 1.8px solid var(--ink);
-  border-radius: 50%;
-  width: 18px;
+  border-radius: 99px;
+  min-width: 18px;
   height: 18px;
+  padding: 0 1.5px;
   display: grid;
   place-items: center;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 900;
   color: var(--ink);
   box-shadow: 1px 1px 0 var(--ink);
   flex: none;
+  box-sizing: border-box;
 }
 
 .tl-bar-v .bar-title {
@@ -555,14 +557,6 @@ section {
   white-space: nowrap;
   line-height: 1;
   text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
-}
-  height: 24px;
-  border-radius: 50%;
-  border: 1.8px solid var(--ink);
-  display: grid;
-  place-items: center;
-  background: var(--cn);
-  font-size: 11px;
 }
 
 /* ==========================================================================
